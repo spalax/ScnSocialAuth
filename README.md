@@ -73,6 +73,15 @@ return array(
 
 Import the schemas for ZfcUser (`./vendor/zf-commons/zfc-user/data/schema.sql`) and ScnSocialAuth (`./vendor/socalnick/scn-social-auth/data/schema.sql`).
 
+Find in `./config/autoload/zfcuser.global.php`:
+```
+'auth_adapters' => array( 100 => 'ZfcUser\Authentication\Adapter\Db' )
+```
+and change it to :
+```
+'auth_adapters' => array( 90 => 'ScnSocialAuth\Authentication\Adapter\HybridAuth', 100 => 'ZfcUser\Authentication\Adapter\Db' )
+```
+
 If you do not already have a valid Zend\Db\Adapter\Adapter in your service
 manager configuration, put the following in `./config/autoload/database.local.php`:
 ```

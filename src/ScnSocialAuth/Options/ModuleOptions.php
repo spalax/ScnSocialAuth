@@ -23,6 +23,11 @@ class ModuleOptions extends AbstractOptions
     );
 
     /**
+     * @var boolean
+     */
+    protected $shareAuthAdaptersStorageInChain = true;
+
+    /**
      * @var string
      */
     protected $userProviderEntityClass = 'ScnSocialAuth\Entity\UserProvider';
@@ -176,6 +181,31 @@ class ModuleOptions extends AbstractOptions
      * @var string
      */
     protected $socialLoginOnly = false;
+
+    /**
+     * set flag for sharing storage
+     * while chaining auth adapters.
+     *
+     * @param  boolean       $flag
+     * @return ModuleOptions
+     */
+    public function setShareAuthAdaptersStorageInChain($flag)
+    {
+        $this->shareAuthAdaptersStorageInChain = (boolean) $flag;
+
+        return $this;
+    }
+
+    /**
+     * get flag for sharing storage
+     * while chaining auth adapters
+     *
+     * @return boolean
+     */
+    public function getShareAuthAdaptersStorageInChain()
+    {
+        return $this->shareAuthAdaptersStorageInChain;
+    }
 
     /**
      * get an array of enabled providers
