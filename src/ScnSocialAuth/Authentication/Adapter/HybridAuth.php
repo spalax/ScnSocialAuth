@@ -148,9 +148,9 @@ class HybridAuth extends AbstractAdapter implements ServiceManagerAwareInterface
         $storage = $this->getStorage()->read();
         $storage['identity'] = $authEvent->getIdentity();
         $this->getStorage()->write($storage);
+
         $authEvent->setCode(Result::SUCCESS)
-          ->setMessages(array('Authentication successful.'))
-          ->stopPropagation();
+                  ->setMessages(array('Authentication successful.'));
     }
 
     /**
