@@ -28,17 +28,14 @@ class AuthenticationAdapterChainFactory implements FactoryInterface
         $scnSocialAuth_options = $services->get('ScnSocialAuth-ModuleOptions');
 
         $factory = new AdapterChainServiceFactory();
+        $options = $factory->getOptions($services);
 
-        if ($scnSocialAuth_options instanceof \ScnSocialAuth\Options\ModuleOptions && $scnSocialAuth_options->getShareAuthAdaptersStorageInChain()) {
-            $options = $factory->getOptions($services);
+        $authAdapter = $services->get('ScnSocialAuth\Authentication\Adapter\HybridAuth');
 
-            $authAdapter = $services->get('ScnSocialAuth\Authentication\Adapter\HybridAuth');
-
-            foreach ($options->getAuthAdapters() as $adapterName) {
-                $adapter = $services->get($adapterName);
-                if ($adapter instanceof AbstractAdapter) {
-                    $adapter->setStorage($authAdapter->getStorage());
-                }
+        foreach ($options->getAuthAdapters() as $adapterName) {
+            $adapter = $services->get($adapterName);
+            if ($adapter instanceof AbstractAdapter) {
+                $adapter->setStorage($authAdapter->getStorage());
             }
         }
 
